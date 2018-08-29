@@ -1,0 +1,30 @@
+{
+  "name": "gaspari-ticket-bot",
+  "version": "0.5.0",
+  "description": "Get lower gaspari ticket price's on telegram",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "lint": "eslint src/** --fix",
+    "test": "jest src",
+    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
+  },
+  "author": "Giacomo Cerquone <cerquone96@hotmail.it>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.0.0",
+    "micro": "latest",
+    "telegraf": "^3.22.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "1.14.2"
+  }
+}
