@@ -5,26 +5,30 @@ Basically it has just a start and stop telegram commands (that you can expand) a
 Last but not least it has also configured the deployment over [now](https://zeit.co/now).
 
 # Plugins
-Add a folder inside the `plugins` folder with the name of your plugin.
-Inside this folder add a *.js file that defines a class and export an object. Period, you're done.
 
-You can find an example of this plugin system on this repo. I've created more directories just to structure better the code for the same reason my handler is a Singleton.\nYou can do whatever you want as long as you export an object with the following methods:
+Add a folder inside the `plugins` folder with the name of your plugin.
+Inside this folder add a \*.js file that defines a class and export an object. Period, you're done.
+
+You can find an example of this plugin system on this repo. I've created more directories just to structure better the code for the same reason my handler is a Singleton.<br>You can do whatever you want as long as you export an object with the following methods:
 
 ### API
 
-The following methods must be in your *.js object file in order to let scr4p3-n0t1fy pick-up your logic:
+The following methods must be in your \*.js object file in order to let scr4p3-n0t1fy pick-up your logic:
 
-##### setBotInstance(bot)
+#### setBotInstance(bot)
+
 Through this method, scr4p3-n0t1fy will know how to pass to your object an instance of the bot (this is exactly the [telegraf instance](https://telegraf.js.org/#/)). In this way you can also come up with new commands.
 
-##### job()
+#### job()
+
 This is where you put all your logic that will be called every `n` seconds (now is set to repeat the function every 5 minutes)
 
-#### External Documentation
+##### External Documentation
+
 - [Telegraf](https://telegraf.js.org/)
 - [Now](https://zeit.co/docs)
 
-#### Todo
+##### Todo
 
 - Come up with some other API to adjust the interval of setInterval
 - Probably a recursive setTimeout is more appropriate for doing http requests sequentially.
