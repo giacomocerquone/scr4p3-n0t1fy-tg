@@ -17,6 +17,13 @@ class Handler {
     return Handler.instance;
   }
 
+  setDatesInterval(
+    start = moment(new Date()).add(1, "days"),
+    end = moment(new Date()).add(15, "days")
+  ) {
+    this.datesInterval = { start, end };
+  }
+
   setBotInstance(bot) {
     this.bot = bot;
 
@@ -25,17 +32,10 @@ class Handler {
     this.bot.command("resetdates", ctx => this.resetDatesController(ctx));
   }
 
-  setDatesInterval(
-    start = moment(new Date()).add(1, "days"),
-    end = moment(new Date()).add(15, "days")
-  ) {
-    this.datesInterval = { start, end };
-  }
-
-  datesController({ state, reply, from }) {
+  datesController({ state: { command }, reply, from }) {
     if (from.id === Number(process.env.MY_TELEGRAM_ID)) {
-      if (state.command && state.command.args.length === 2) {
-        const [start, end] = state.command.args;
+      if (command && command.args.length === 2) {
+        const [start, end] = command.args;
         this.setDatesInterval(start, end);
 
         reply(`Sto cercando biglietti dal ${start} al ${end}.`);
