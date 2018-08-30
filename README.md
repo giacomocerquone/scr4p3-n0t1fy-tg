@@ -23,12 +23,12 @@ Through this method, scr4p3-n0t1fy will know how to pass to your object an insta
 
 This is where you put all your logic that will be called every `n` seconds (now is set to repeat the function every 5 minutes)
 
-##### External Documentation
+### External Documentation
 
 - [Telegraf](https://telegraf.js.org/)
 - [Now](https://zeit.co/docs)
 
-##### Todo
+### Todo
 
 - Come up with some other API to adjust the interval of setInterval
 - Probably a recursive setTimeout is more appropriate for doing http requests sequentially.
