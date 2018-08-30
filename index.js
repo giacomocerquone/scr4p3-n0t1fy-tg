@@ -1,17 +1,25 @@
 require("dotenv").config();
 const Telegraf = require("telegraf");
 
+const commandArgs = require("./src/middlewares/commandArgsParser");
+const plugins = require("./plugins.js");
+const intervalHandler = require("./src/IntervalHandler");
+
 const bot = new Telegraf(process.env.BOT_TOKEN);
+bot.use(commandArgs());
 
-const usersToNotify = [];
-
-bot.start(ctx => ctx.reply("Benvenuto"));
-bot.help(ctx => ctx.reply("/notify - Per ricevere notifiche "));
-bot.command("notify", ctx => {
-  usersToNotify.push(ctx.from);
-  ctx.reply(`Ti notificherò ${ctx.from.first_name}`);
+// Giving bot instance to plugins
+Object.keys(plugins).forEach(key => {
+  plugins[key].setBotInstance(bot);
 });
 
-usersToNotify.forEach(user => bot.telegram.sendMessage(user.id, 'Eccoti la notifica'));
+bot.start(({ reply, from }) => {
+  reply("Benvenuto. Notificherò solo il mio padrone.");
+  if (from.id === process.env.MY_TELEGRAM_ID) intervalHandler.start();
+});
+
+bot.command("stop", ({ from }) => {
+  if (from.id === process.env.MY_TELEGRAM_ID) intervalHandler.clear();
+});
 
 bot.startPolling();

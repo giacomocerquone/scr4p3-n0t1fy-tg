@@ -1,12 +1,7 @@
 module.exports = {
-  extends: [
-    "airbnb-base",
-    "plugin:jest/recommended",
-    "plugin:prettier/recommended"
-  ],
-  plugins: ["import", "jest"],
+  extends: ["airbnb-base", "plugin:prettier/recommended"],
+  plugins: ["import"],
   env: {
-    node: true,
-    "jest/globals": true
+    node: true
   }
 };
