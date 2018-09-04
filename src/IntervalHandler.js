@@ -1,26 +1,29 @@
-const plugins = require("../plugins.js");
-
 class IntervalHandler {
-  constructor() {
-    if (!IntervalHandler.instance) {
-      IntervalHandler.instance = this;
-    }
-
+  constructor(pluginsInstances) {
     this.intervalID = null;
+    this.intervalMs = 3000 * 10;
+    this.plugins = pluginsInstances;
+    // this.intervalMs = 300 * 10000;
 
     // Getting the jobs that plugins must execute
-    this.jobsFromPlugins = Object.keys(plugins).map(key => plugins[key].job);
-
-    return IntervalHandler.instance;
+    this.jobsFromPlugins = Object.keys(this.plugins).map(
+      key => this.plugins[key].job
+    );
   }
 
   clear() {
-    if (this.intervalID) clearInterval(this.intervalID);
+    if (this.intervalID) {
+      clearInterval(this.intervalID);
+      this.intervalID = null;
+    }
   }
 
   start() {
     this.clear();
-    this.intervalID = setInterval(this.executeRequests, 300 * 1000);
+    this.intervalID = setInterval(
+      () => this.executeRequests(),
+      this.intervalMs
+    );
   }
 
   executeRequests() {
@@ -28,4 +31,4 @@ class IntervalHandler {
   }
 }
 
-module.exports = new IntervalHandler();
+module.exports = IntervalHandler;
